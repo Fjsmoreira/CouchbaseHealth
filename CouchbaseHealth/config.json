@@ -1,0 +1,65 @@
+﻿/* 
+  This file is parsed by NewtonSoft. Normally, you cannot use comments
+  in a json file, but fortunately for us NewtonSoft doesn't care by
+  default so we can use it to annotate this file.
+
+  Some interesting points:
+
+  - You can use comments in your config files :-)
+  - Generate example: Nimator.Settings.NimatorSettings.GetExample()
+  - Use NewtonSoft-style "$type" hints to indicate what class you meant
+  - You could equally well persist this in e.g. a file
+*/
+{
+  "Notifiers": [
+    {
+      "$type": "Nimator.Settings.ConsoleSettings, Nimator",
+      "Threshold": "Okay"
+    }
+
+    // [SLACK] Enter your API url and uncomment:
+    //,
+    //{
+    //  "$type": "Nimator.Settings.SlackSettings, Nimator",
+    //  "Threshold":  "Okay",
+    //  "Url": "https://hooks.slack.com/services/YOUR/INTEGATION/url-goes-here",
+    //  "DebounceTimeInSecs": 60
+    //}
+
+    // [OPSGENIE] Enter your API Key and Heartbeat name and uncomment:
+    //,
+    //{
+    //  "$type": "Nimator.Settings.OpsGenieSettings, Nimator",
+    //  "Threshold": "Error",
+    //  "ApiKey": "your-key-here",
+    //  "TeamName": "ops_team",
+    //  "HeartbeatName":  "nimator"
+    //}
+  ],
+
+  "Layers": [
+    {
+      "Name": "Couchbase Health",
+      "Checks": [
+        {
+          "$type": "CouchbaseHealth.DocumentCheckSettings, CouchbaseHealth",
+          "LevelToSimulate": "Warning",
+          "Server": "http://localhost:8091/",
+          "Bucket": "beer-sample",
+          "BucketPassword": "couchbase",
+          "DocumentLimitToWarning": 8000,
+          "DocumentLimitToError": 7000
+        },
+        {
+          "$type": "CouchbaseHealth.MemoryCheckSettings, CouchbaseHealth",
+          "LevelToSimulate": "Warning",
+          "Server": "http://localhost:8091/",
+          "Bucket": "beer-sample",
+          "BucketPassword": "couchbase",
+          "MemoryInUsePercentageToError": 75,
+          "MemoryInUsePercentageToWarning": 10
+        }
+      ]
+    }
+  ]
+}
