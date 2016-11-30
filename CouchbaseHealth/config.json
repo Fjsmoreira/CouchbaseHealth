@@ -47,8 +47,8 @@
           "Server": "http://localhost:8091/",
           "Bucket": "beer-sample",
           "BucketPassword": "couchbase",
-          "DocumentLimitToWarning": 8000,
-          "DocumentLimitToError": 7000
+          "DocumentLimitToWarning": 80000,
+          "DocumentLimitToError": 100000
         },
         {
           "$type": "CouchbaseHealth.MemoryCheckSettings, CouchbaseHealth",
@@ -57,7 +57,7 @@
           "Bucket": "beer-sample",
           "BucketPassword": "couchbase",
           "MemoryInUsePercentageToError": 75,
-          "MemoryInUsePercentageToWarning": 10
+          "MemoryInUsePercentageToWarning": 60
         }
       ]
     }
